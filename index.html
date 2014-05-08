@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Test clavardage</title>
+</head>
+<body>
+    <h1>Test clavardage</h1>
+    <button id="pingBtn">Ping server</button>
+    <code>
+
+    </code>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        function print(s) {
+            var shell = $('code');
+            shell.append('<br/>' + s);
+        }
+        print('Starting...');
+        var socket = io.connect('http://localhost:8080');
+        print('Connected.');
+        socket.on('message', function (message) {
+            print('[SERVER MESSAGE] ' + message);
+        });
+
+        $('#pingBtn').click(function () {
+            socket.emit('message', 'PING SERVER');
+        });
+    </script>
+</body>
+</html>
